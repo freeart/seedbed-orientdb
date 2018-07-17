@@ -1,6 +1,6 @@
 const assert = require('assert'),
-	//requestPromise = require('request-promise')
-	OrientDB = require('orientjs');
+	requestPromise = require('request-promise')
+//OrientDB = require('orientjs');
 
 
 module.exports = function () {
@@ -8,7 +8,7 @@ module.exports = function () {
 
 	const shared = this;
 
-	/* class OrientDB {
+	class OrientDB {
 		constructor(config) {
 			this.config = config;
 		}
@@ -33,12 +33,12 @@ module.exports = function () {
 				})
 			})
 		}
-	} */
+	}
 
-	//this.orientDB = new OrientDB(this.config.get("orientdb"));
-	const client = OrientDB(this.config.get("orientdb"));
+	this.orientDB = new OrientDB(this.config.get("orientdb"));
+	//const client = OrientDB(this.config.get("orientdb"));
 
-	this.orientDB = client.use(this.config.get("orientdb"));
+	//this.orientDB = client.use(this.config.get("orientdb"));
 
 	return Promise.resolve();
 }
