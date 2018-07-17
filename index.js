@@ -8,7 +8,7 @@ module.exports = function () {
 
 	const shared = this;
 
-	class OrientDB {
+	/* class OrientDB {
 		constructor(config) {
 			this.config = config;
 		}
@@ -33,7 +33,7 @@ module.exports = function () {
 				})
 			})
 		}
-	}
+	} */
 
 	//this.orientDB = new OrientDB(this.config.get("orientdb"));
 	const client = OrientDB(this.config.get("orientdb"));
