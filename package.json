@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/freeart/seedbed-orientdb#readme",
   "dependencies": {
-    "orientjs": "^2.2.10"
+    "orientjs": "^2.2.10",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   }
 }
