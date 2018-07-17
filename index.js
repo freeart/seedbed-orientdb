@@ -22,10 +22,8 @@ module.exports = function () {
 						"Authorization": `Basic ${Buffer.from(this.config.username + ':' + this.config.password).toString('base64')}`
 					},
 					json: true,
-					body: {
-						command,
-						parameters
-					}
+					body: Object.assign({ command }, parameters && parameters.params ? { parameters: parameters.params } : {}
+					)
 				}).then((res) => {
 					resolve(res.result)
 				}).catch((err) => {
