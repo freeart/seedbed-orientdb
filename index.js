@@ -21,7 +21,36 @@ module.exports = function () {
 						"Authorization": `Basic ${Buffer.from(this.config.username + ':' + this.config.password).toString('base64')}`
 					},
 					json: true,
-					body: Object.assign({ command }, parameters && parameters.params ? { parameters: parameters.params } : {})
+					body: Object.assign({
+						command
+					}, parameters && parameters.params ? {
+						parameters: parameters.params
+					} : {})
+				}).then((res) => {
+					resolve(res.result)
+				}).catch((err) => {
+					reject(err)
+				})
+			})
+		}
+
+		batch(transaction, script) {
+			return new Promise((resolve, reject) => {
+				requestPromise({
+					method: 'POST',
+					uri: `http://${this.config.host}:${this.config.port}/batch/${this.config.name}`,
+					headers: {
+						"Authorization": `Basic ${Buffer.from(this.config.username + ':' + this.config.password).toString('base64')}`
+					},
+					json: true,
+					body: {
+						transaction,
+						operations: [{
+							type: "script",
+							language: "sql",
+							script
+						}]
+					}
 				}).then((res) => {
 					resolve(res.result)
 				}).catch((err) => {
