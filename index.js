@@ -1,7 +1,6 @@
 const assert = require('assert'),
 	requestPromise = require('request-promise')
-//OrientDB = require('orientjs');
-
+// OrientDB = require('orientjs');
 
 module.exports = function () {
 	assert(!this.orientDB, "field exists")
@@ -26,16 +25,16 @@ module.exports = function () {
 				}).then((res) => {
 					resolve(res.result)
 				}).catch((err) => {
-					reject(err)
+					reject(err.message)
 				})
 			})
 		}
 	}
 
 	this.orientDB = new OrientDB(this.config.get("orientdb"));
-	//const client = OrientDB(this.config.get("orientdb"));
+	// const client = OrientDB(this.config.get("orientdb"));
 
-	//this.orientDB = client.use(this.config.get("orientdb"));
+	// this.orientDB = client.use(this.config.get("orientdb"));
 
 	return Promise.resolve();
 }
