@@ -29,7 +29,7 @@ module.exports = function () {
 				}).then((res) => {
 					resolve(res.result)
 				}).catch((err) => {
-					reject(err)
+					reject(err.message)
 				})
 			})
 		}
