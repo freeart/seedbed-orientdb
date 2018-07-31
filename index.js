@@ -37,7 +37,7 @@ module.exports = function () {
 					cb && cb(err.message)
 					reject(err.message)
 				})
-			})
+			}).catch((err) => { })
 		}
 
 		batch(operations, transaction = true, cb) {
@@ -68,7 +68,7 @@ module.exports = function () {
 					cb && cb(err.message)
 					reject(err.message)
 				})
-			})
+			}).catch((err) => { })
 		}
 	}
 
