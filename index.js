@@ -58,7 +58,7 @@ module.exports = function () {
 						operations: [{
 							type: "script",
 							language: "sql",
-							script: `BEGIN; ${operations.join(';')}; COMMIT`
+							script: `${operations.join(';')};`
 						}]
 					}
 				}).then((res) => {
