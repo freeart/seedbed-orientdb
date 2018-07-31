@@ -18,7 +18,7 @@ module.exports = function () {
 				parameters = {};
 			}
 			const promise = new Promise((resolve, reject) => {
-				requestPromise({
+				return requestPromise({
 					method: 'POST',
 					uri: `http://${this.config.host}:${this.config.port}/command/${this.config.name}/sql/25`,
 					headers: {
@@ -47,7 +47,7 @@ module.exports = function () {
 				transaction = true;
 			}
 			const promise = new Promise((resolve, reject) => {
-				requestPromise({
+				return requestPromise({
 					method: 'POST',
 					uri: `http://${this.config.host}:${this.config.port}/batch/${this.config.name}`,
 					headers: {
