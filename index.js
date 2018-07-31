@@ -12,7 +12,11 @@ module.exports = function () {
 			this.config = config;
 		}
 
-		query(command, parameters) {
+		query(command, parameters, cb) {
+			if (typeof parameters == "function") {
+				cb = parameters;
+				parameters = {};
+			}
 			return new Promise((resolve, reject) => {
 				requestPromise({
 					method: 'POST',
@@ -27,14 +31,20 @@ module.exports = function () {
 						parameters: parameters.params
 					} : {})
 				}).then((res) => {
+					cb && cb(null, res.result)
 					resolve(res.result)
 				}).catch((err) => {
+					cb && cb(err.message)
 					reject(err.message)
 				})
 			})
 		}
 
-		batch(operations, transaction = true) {
+		batch(operations, transaction = true, cb) {
+			if (typeof transaction == "function") {
+				cb = transaction;
+				transaction = true;
+			}
 			return new Promise((resolve, reject) => {
 				requestPromise({
 					method: 'POST',
@@ -52,8 +62,10 @@ module.exports = function () {
 						}]
 					}
 				}).then((res) => {
+					cb && cb(null, res.result)
 					resolve(res.result)
 				}).catch((err) => {
+					cb && cb(err.message)
 					reject(err.message)
 				})
 			})
