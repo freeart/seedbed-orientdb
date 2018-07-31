@@ -1,5 +1,5 @@
 const assert = require('assert'),
-	requestPromise = require('request-promise')
+	request = require('request')
 // OrientDB = require('orientjs');
 
 module.exports = function () {
@@ -17,10 +17,10 @@ module.exports = function () {
 				cb = parameters;
 				parameters = {};
 			}
-			const promise = new Promise((resolve, reject) => {
-				return requestPromise({
+			return new Promise((resolve, reject) => {
+				request({
 					method: 'POST',
-					uri: `http://${this.config.host}:${this.config.port}/command/${this.config.name}/sql/25`,
+					url: `http://${this.config.host}:${this.config.port}/command/${this.config.name}/sql/25`,
 					headers: {
 						"Authorization": `Basic ${Buffer.from(this.config.username + ':' + this.config.password).toString('base64')}`
 					},
@@ -30,15 +30,15 @@ module.exports = function () {
 					}, parameters && parameters.params ? {
 						parameters: parameters.params
 					} : {})
-				}).then((res) => {
+				}, (err, res, result) => {
+					if (err) {
+						cb && cb(err.message)
+						return reject(err.message)
+					}
 					cb && cb(null, res.result)
 					resolve(res.result)
-				}).catch((err) => {
-					cb && cb(err.message)
-					reject(err.message)
 				})
 			})
-			return promise;
 		}
 
 		batch(operations, transaction = true, cb) {
@@ -46,10 +46,10 @@ module.exports = function () {
 				cb = transaction;
 				transaction = true;
 			}
-			const promise = new Promise((resolve, reject) => {
-				return requestPromise({
+			return new Promise((resolve, reject) => {
+				request({
 					method: 'POST',
-					uri: `http://${this.config.host}:${this.config.port}/batch/${this.config.name}`,
+					url: `http://${this.config.host}:${this.config.port}/batch/${this.config.name}`,
 					headers: {
 						"Authorization": `Basic ${Buffer.from(this.config.username + ':' + this.config.password).toString('base64')}`
 					},
@@ -62,15 +62,15 @@ module.exports = function () {
 							script: `${transaction ? 'BEGIN;' : ''} ${operations.join(';')}; ${transaction ? 'COMMIT;' : ''}`
 						}]
 					}
-				}).then((res) => {
+				}, (err, res, result) => {
+					if (err) {
+						cb && cb(err.message)
+						return reject(err.message)
+					}
 					cb && cb(null, res.result)
 					resolve(res.result)
-				}).catch((err) => {
-					cb && cb(err.message)
-					reject(err.message)
 				})
 			})
-			return promise;
 		}
 	}
 
