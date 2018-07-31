@@ -34,7 +34,7 @@ module.exports = function () {
 			})
 		}
 
-		batch(transaction, script) {
+		batch(operations, transaction = true) {
 			return new Promise((resolve, reject) => {
 				requestPromise({
 					method: 'POST',
@@ -48,7 +48,7 @@ module.exports = function () {
 						operations: [{
 							type: "script",
 							language: "sql",
-							script
+							script: `BEGIN; ${operations.join(';')}; COMMIT`
 						}]
 					}
 				}).then((res) => {
