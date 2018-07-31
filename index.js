@@ -17,7 +17,7 @@ module.exports = function () {
 				cb = parameters;
 				parameters = {};
 			}
-			return new Promise((resolve, reject) => {
+			const promise = new Promise((resolve, reject) => {
 				requestPromise({
 					method: 'POST',
 					uri: `http://${this.config.host}:${this.config.port}/command/${this.config.name}/sql/25`,
@@ -37,7 +37,9 @@ module.exports = function () {
 					cb && cb(err.message)
 					reject(err.message)
 				})
-			}).catch((err) => { })
+			})
+			promise.catch((err) => { })
+			return promise;
 		}
 
 		batch(operations, transaction = true, cb) {
@@ -45,7 +47,7 @@ module.exports = function () {
 				cb = transaction;
 				transaction = true;
 			}
-			return new Promise((resolve, reject) => {
+			const promise = new Promise((resolve, reject) => {
 				requestPromise({
 					method: 'POST',
 					uri: `http://${this.config.host}:${this.config.port}/batch/${this.config.name}`,
@@ -68,7 +70,9 @@ module.exports = function () {
 					cb && cb(err.message)
 					reject(err.message)
 				})
-			}).catch((err) => { })
+			})
+			promise.catch((err) => { })
+			return promise;
 		}
 	}
 
