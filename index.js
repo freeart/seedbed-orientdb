@@ -38,7 +38,6 @@ module.exports = function () {
 					reject(err.message)
 				})
 			})
-			promise.catch((err) => { })
 			return promise;
 		}
 
@@ -71,7 +70,6 @@ module.exports = function () {
 					reject(err.message)
 				})
 			})
-			promise.catch((err) => { })
 			return promise;
 		}
 	}
