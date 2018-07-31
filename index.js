@@ -67,8 +67,8 @@ module.exports = function () {
 						cb && cb(err.message)
 						return reject(err.message)
 					}
-					cb && cb(null, res.result)
-					resolve(res.result)
+					cb && cb(null, result.result)
+					resolve(result.result)
 				})
 			})
 		}
