@@ -32,8 +32,8 @@ module.exports = function () {
 					} : {})
 				}, (err, res, result) => {
 					if (err || result.errors) {
-						cb && cb(err ? err.message : result.errors)
-						return reject(err ? err.message : result.errors)
+						cb && cb(new Error(err ? err.message : result.errors[0].content))
+						return reject(new Error(err ? err.message : result.errors[0].content))
 					}
 					cb && cb(null, result.result)
 					resolve(result.result)
@@ -64,8 +64,8 @@ module.exports = function () {
 					}
 				}, (err, res, result) => {
 					if (err || result.errors) {
-						cb && cb(err ? err.message : result.errors)
-						return reject(err ? err.message : result.errors)
+						cb && cb(new Error(err ? err.message : result.errors[0].content))
+						return reject(new Error(err ? err.message : result.errors[0].content))
 					}
 					cb && cb(null, result.result)
 					resolve(result.result)
