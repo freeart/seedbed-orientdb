@@ -31,9 +31,9 @@ module.exports = function () {
 						parameters: parameters.params
 					} : {})
 				}, (err, res, result) => {
-					if (err) {
-						cb && cb(err.message)
-						return reject(err.message)
+					if (err || result.errors) {
+						cb && cb(err.message || result.errors)
+						return reject(err.message || result.errors)
 					}
 					cb && cb(null, result.result)
 					resolve(result.result)
@@ -63,9 +63,9 @@ module.exports = function () {
 						}]
 					}
 				}, (err, res, result) => {
-					if (err) {
-						cb && cb(err.message)
-						return reject(err.message)
+					if (err || result.errors) {
+						cb && cb(err.message || result.errors)
+						return reject(err.message || result.errors)
 					}
 					cb && cb(null, result.result)
 					resolve(result.result)
