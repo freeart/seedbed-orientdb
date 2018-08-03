@@ -64,8 +64,8 @@ module.exports = function () {
 					}
 				}, (err, res, result) => {
 					if (err || result.errors) {
-						cb && cb(err.message || result.errors)
-						return reject(err.message || result.errors)
+						cb && cb(err ? err.message : result.errors)
+						return reject(err ? err.message : result.errors)
 					}
 					cb && cb(null, result.result)
 					resolve(result.result)
