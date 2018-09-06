@@ -1,6 +1,5 @@
 const assert = require('assert'),
 	request = require('request')
-// OrientDB = require('orientjs');
 
 module.exports = function () {
 	assert(!this.orientDB, "field exists")
